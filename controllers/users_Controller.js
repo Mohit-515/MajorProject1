@@ -9,12 +9,21 @@ module.exports.profile = function(req, res){
 }
 //render sign-up page
 module.exports.signUp=function(req,res){
+    if(req.isAuthenticated()){
+        return res.redirect('/users/profile');
+    }
+
     return res.render('user_sign_up',{
         title: "Codeial | Sign Up"
     })
 }
 //render sign-in page
 module.exports.signIn=function(req,res){
+
+    if(req.isAuthenticated()){
+        return res.redirect('/users/profile');
+    }
+
     return res.render('user_sign_in',{
         title: "Codeial | Sign In"
     })
@@ -45,7 +54,16 @@ module.exports.create=function(req, res){
 
 //create-session for sign-in
 module.exports.createSession=function(req, res){
+    //todo
+    return res.redirect('/');
+
     //steps to authenticate
     //find the user
     
+}
+
+module.exports.destroySession = function(req, res){
+
+    req.logout();
+    return res.redirect('/');
 }
